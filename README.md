@@ -9,19 +9,19 @@
   * Make a [GitHub Account](https://github.com/join)  
   * Go And [Fork this repository](https://github.com/shyamkumaryadav/pythonide/fork "Python IDE")  
   * set value on git  
-  `git config --global user.email "you@example.com"`
+  `git config --global user.email "you@example.com"`  
 	`git config --global user.name "Your Name"`  
   * Check out the source code with:  
   `git clone https://github.com/YOUR_GITHUB_USERNAME/pythonide.git`  
   * Start a new git branch with  
-	`cd pythonide`    
-	* install all Required pip by   
-	`python -m pip install -r requirements.txt`
+	`cd pythonide`  
+	* install all Required pip by  
+	`python -m pip install -r requirements.txt`  
 	* after adding some changes and features  
-	`git add -A`
-	`git commit -m 'your message'`
+	`git add -A`  
+	`git commit -m 'your message'`  
 	`git push origin master`
----
+	---
 
 
 This file will run you through the work I have done( the work is neither optimized nor is it complete(Find and replace is missing and many more))
