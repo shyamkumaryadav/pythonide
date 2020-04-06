@@ -1,3 +1,31 @@
+# Python IDE
+
+---
+
+# Steps To Contribute
+
+### S 1
+
+<p>
+	1. [Fork this repository](https://github.com/shyamkumaryadav/pythonide/fork)
+
+	2. Check out the source code with:
+		git clone git@github.com:YOUR_GITHUB_USERNAME/pythonide.git
+
+	3. Start a new git branch with
+		cd youtube-dl
+		git checkout -b yourextractor
+
+
+Start a new git branch with
+</p>
+---
+<p>
+	1. yes python
+	2. Run the requirements.txt (C:> <u>python -m pip install -r requirements.txt<\u>)
+	3. 
+<p>
+
 This file will run you through the work I have done( the work is neither optimized nor is it complete(Find and replace is missing and many more))
 MainWindow.py -----> Main Entry Point of the IDE
 Dialogs.py -----> Base Dialogs( Message, Warning and Question)
