@@ -2,23 +2,21 @@
 
 ---
 
-# Steps To Contribute
+# Steps To Setup you System
+---
+###### [Git Downlado and Install](https://git-scm.com/downloads 'download & install')
 
-### S 1
+---
+### GitHub.com
+  * Make a [GitHub Account](https://github.com/join)
+  * Go And [Fork this repository](https://github.com/shyamkumaryadav/pythonide/fork "Python IDE")
 
-<p>
-	1. [Fork this repository](https://github.com/shyamkumaryadav/pythonide/fork)
-
-	2. Check out the source code with:
+  * Check out the source code with:
 		git clone git@github.com:YOUR_GITHUB_USERNAME/pythonide.git
 
-	3. Start a new git branch with
+  * Start a new git branch with
 		cd youtube-dl
 		git checkout -b yourextractor
-
-
-Start a new git branch with
-</p>
 ---
 <p>
 	1. yes python
