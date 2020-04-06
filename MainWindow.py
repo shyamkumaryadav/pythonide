@@ -224,6 +224,7 @@ class TextEditor(QMainWindow):
             self.d.Message("File Saved successfully")
         else:
             self.d.Error("File could not be saved")
+            
 if __name__=="__main__":
     app=QApplication([])
     app.setStyle(QStyleFactory.create('Fusion'))
