@@ -4,6 +4,7 @@ from PyQt5.QtGui import QColor
 from PyQt5.Qsci import *
 import platform
 import sys
+import textwrap
 from Dialogs import Dialogs
 from SaveLoad import SaveLoad
 from Operations import Save,Open
@@ -29,7 +30,9 @@ class TextEditor(QMainWindow):
         sizePolicy.setHeightForWidth(self.centralWidget.sizePolicy().hasHeightForWidth())
         self.centralWidget.setSizePolicy(sizePolicy)
         self.centralWidget.setObjectName("centralwidget")
+
         self.editor=QsciScintilla(self.centralWidget)
+
         self.editor.setMargins(2)
         self.editor.setMarginType(0,QsciScintilla.NumberMargin)
         self.editor.setMarginType(1,QsciScintilla.SymbolMargin)
@@ -231,4 +234,3 @@ if __name__=="__main__":
     g=TextEditor()
     g.show()
     sys.exit(app.exec_())
-    
