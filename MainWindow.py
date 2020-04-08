@@ -1,4 +1,4 @@
-from PyQt5.QtWidgets import QSizePolicy, QWidget, QMenuBar, QMenu, QAction, QApplication, QMainWindow, QMessageBox, QStyleFactory, QDesktopWidget
+from PyQt5.QtWidgets import QSizePolicy, QWidget, QMenuBar, QMenu, QAction, QApplication, QMainWindow, QMessageBox, QStyleFactory, QDesktopWidget, QFontDialog
 from PyQt5.QtCore import QRect, QMetaObject, QCoreApplication
 from PyQt5.QtGui import QColor
 from PyQt5.Qsci import *
@@ -134,6 +134,7 @@ class TextEditor(QMainWindow):
         self.actionOpen.triggered.connect(self.open)
         self.actionSave.triggered.connect(self.save)
         self.actionSave_As.triggered.connect(self.saveAs)
+        self.actionFont.triggered.connect(self.fontChange)
         self.actionExit.triggered.connect(self.close)
         self.actionUndo.triggered.connect(self.editor.undo)
         self.actionRedo.triggered.connect(self.editor.redo)
@@ -227,6 +228,11 @@ class TextEditor(QMainWindow):
             self.d.Message("File Saved successfully")
         else:
             self.d.Error("File could not be saved")
+
+    def fontChange(self, *args, **kwargs):
+        fontClass, status = QFontDialog.getFont()
+        if status==True:
+            pass # change style of my IdE
             
 if __name__=="__main__":
     app=QApplication([])
