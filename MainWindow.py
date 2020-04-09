@@ -1,28 +1,28 @@
-from PyQt5.QtWidgets import QSizePolicy, QWidget, QMenuBar, QMenu, QAction, QApplication, QMainWindow, QMessageBox, QStyleFactory, QDesktopWidget, QFontDialog
+from PyQt5.QtWidgets import QSizePolicy, QWidget, QMenuBar, QMenu, QAction, QApplication, QMainWindow, QMessageBox, QStyleFactory, QDesktopWidget,QInputDialog,QLineEdit,QFontDialog
 from PyQt5.QtCore import QRect, QMetaObject, QCoreApplication
-from PyQt5.QtGui import QColor
+from PyQt5.QtGui import QColor,QFont
 from PyQt5.Qsci import *
 import platform
 import sys
-import textwrap
 from Dialogs import Dialogs
 from SaveLoad import SaveLoad
 from Operations import Save,Open
+from Runfile import Runfile, Shell
 s=SaveLoad()
 class TextEditor(QMainWindow):
-    def __init__(self,data=None,filename=None):
+    def __init__(self):
         super().__init__()
         self.setObjectName("MainWindow")
-        self.filename=filename
+        self.filename=None
         self.setFixedSize(900,QDesktopWidget().screenGeometry(-1).height())
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.sizePolicy().hasHeightForWidth())
         self.setSizePolicy(sizePolicy)
-        self.initUI(data,filename)
+        self.initUI()
         self.d=Dialogs(self)
-    def initUI(self,data=None,filename=None):
+    def initUI(self):
         self.centralWidget=QWidget(self)
         sizePolicy=QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy.setHorizontalPolicy(0)
@@ -30,14 +30,26 @@ class TextEditor(QMainWindow):
         sizePolicy.setHeightForWidth(self.centralWidget.sizePolicy().hasHeightForWidth())
         self.centralWidget.setSizePolicy(sizePolicy)
         self.centralWidget.setObjectName("centralwidget")
-
         self.editor=QsciScintilla(self.centralWidget)
-
+        try:
+            file_handle=open("config.txt","r")
+            font_name,size,bold,italic=file_handle.read().split("/")
+            if bold and italic:
+                font=QFont(font_name,float(size),QFont.Bold,True)
+            elif bold:
+                font=QFont(font_name,float(size),QFont.Bold)
+            else:
+                font=QFont(font_name,float(size))
+                if italic:
+                    font.setItalic(True)
+        except:
+            font=QFont("Times New Roman",12)
+        self.editor.setFont(font)
         self.editor.setMargins(2)
         self.editor.setMarginType(0,QsciScintilla.NumberMargin)
         self.editor.setMarginType(1,QsciScintilla.SymbolMargin)
-        self.editor.setMarginWidth(0,"0000")
-        self.editor.setMarginWidth(1,"000")
+        self.editor.setMarginWidth(0,"00")
+        self.editor.setMarginWidth(1,"00")
         self.editor.markerDefine(QsciScintilla.RightTriangle,1)
         if(platform.system()=="Windows"):
             self.editor.setEolMode(QsciScintilla.EolWindows)
@@ -57,12 +69,13 @@ class TextEditor(QMainWindow):
         self.editor.setCaretForegroundColor(QColor("#ff11214b"))
         self.editor.setCaretLineVisible(True)
         self.editor.setCaretLineBackgroundColor(QColor("#1f0000ff"))
-        self.editor.setCaretWidth(2)
         self.editor.setUtf8(True)
         self.editor.setMarginSensitivity(1,True)
         self.editor.marginClicked.connect(self.margin_clicked)
         self.editor.marginRightClicked.connect(self.margin_right_clicked)
-        self.editor.setLexer(QsciLexerPython())
+        self.lexer=QsciLexerPython()
+        self.lexer.setFont(font)
+        self.editor.setLexer(self.lexer)
         self.editor.setGeometry(QRect(0, 0, 900,680))
         self.setCentralWidget(self.centralWidget)
         self.menubar=QMenuBar(self)
@@ -74,6 +87,8 @@ class TextEditor(QMainWindow):
         self.menuEdit.setObjectName("menuEdit")
         self.menuView = QMenu(self.menubar)
         self.menuView.setObjectName("menuView")
+        self.menuRun = QMenu(self.menubar)
+        self.menuRun.setObjectName("menuRun")
         self.menuSettings = QMenu(self.menubar)
         self.menuSettings.setObjectName("menuSettings")
         self.setMenuBar(self.menubar)
@@ -107,6 +122,12 @@ class TextEditor(QMainWindow):
         self.actionFind.setObjectName("actionFind")
         self.actionReplace = QAction(self)
         self.actionReplace.setObjectName("actionReplace")
+        self.actionRun = QAction(self)
+        self.actionRun.setObjectName("actionRun")
+        self.actionRunCustomized = QAction(self)
+        self.actionRunCustomized.setObjectName("actionRunCustomized")
+        self.actionShell = QAction(self)
+        self.actionShell.setObjectName("actionShell")
         self.menuFile.addAction(self.actionNew)
         self.menuFile.addAction(self.actionOpen)
         self.menuFile.addAction(self.actionSave)
@@ -123,18 +144,21 @@ class TextEditor(QMainWindow):
         self.menuEdit.addAction(self.actionPaste)
         self.menuView.addAction(self.actionFind)
         self.menuView.addAction(self.actionReplace)
+        self.menuRun.addAction(self.actionRun)
+        self.menuRun.addAction(self.actionRunCustomized)
+        self.menuRun.addAction(self.actionShell)
         self.menuSettings.addAction(self.actionFont)
         self.menuSettings.addAction(self.actionEncoding)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuEdit.menuAction())
         self.menubar.addAction(self.menuView.menuAction())
+        self.menubar.addAction(self.menuRun.menuAction())
         self.menubar.addAction(self.menuSettings.menuAction())
         self.retranslateUI()
         self.actionNew.triggered.connect(self.new)
         self.actionOpen.triggered.connect(self.open)
         self.actionSave.triggered.connect(self.save)
         self.actionSave_As.triggered.connect(self.saveAs)
-        self.actionFont.triggered.connect(self.fontChange)
         self.actionExit.triggered.connect(self.close)
         self.actionUndo.triggered.connect(self.editor.undo)
         self.actionRedo.triggered.connect(self.editor.redo)
@@ -142,6 +166,10 @@ class TextEditor(QMainWindow):
         self.actionCut.triggered.connect(self.editor.cut)
         self.actionCopy.triggered.connect(self.editor.copy)
         self.actionPaste.triggered.connect(self.editor.paste)
+        self.actionRun.triggered.connect(self.run)
+        self.actionRunCustomized.triggered.connect(self.runCustom)
+        self.actionShell.triggered.connect(self.shell)
+        self.actionFont.triggered.connect(self.Font)
         QMetaObject.connectSlotsByName(self)
     def retranslateUI(self):
         _translate = QCoreApplication.translate
@@ -149,6 +177,7 @@ class TextEditor(QMainWindow):
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuEdit.setTitle(_translate("MainWindow", "Edit"))
         self.menuView.setTitle(_translate("MainWindow", "View"))
+        self.menuRun.setTitle(_translate("MainWindow","Run"))
         self.menuSettings.setTitle(_translate("MainWindow", "Settings"))
         self.actionFont.setText(_translate("MainWindow", "Font..."))
         self.actionEncoding.setText(_translate("MainWindow", "Encoding..."))
@@ -173,9 +202,12 @@ class TextEditor(QMainWindow):
         self.actionCopy.setText(_translate("MainWindow", "Copy"))
         self.actionCopy.setShortcut(_translate("MainWindow", "Ctrl+C"))
         self.actionPaste.setText(_translate("MainWindow", "Paste"))
-        self.actionPaste.setShortcut(_translate("MainWindow", "Ctrl+S"))
+        self.actionPaste.setShortcut(_translate("MainWindow", "Ctrl+V"))
         self.actionFind.setText(_translate("MainWindow", "Find..."))
         self.actionReplace.setText(_translate("MainWindow", "Replace..."))
+        self.actionRun.setText(_translate("MainWindow","Run..."))
+        self.actionRunCustomized.setText(_translate("MainWindow","Run customized"))
+        self.actionShell.setText(_translate("MainWindow","Shell"))
     def margin_clicked(self,margin_nr,line_nr,state):
         self.editor.markerAdd(line_nr,margin_nr)
     def margin_right_clicked(self,margin_nr,line_nr,state):
@@ -202,23 +234,19 @@ class TextEditor(QMainWindow):
                 else:
                     d.Error("File could not be saved")
         filename=s.OpenDialog()
-        print(filename)
         data=Open(filename)
-        print(data)
         if data is not None:
             self.editor.setText(data)
+            self.setWindowTitle(filename)
+            self.filename=filename
     def save(self):
         if self.filename is None:
-            self.filename=s.SaveDialog()
+            self.saveAs()
+        else:
             returnval=Save(self.editor.text(),self.filename)
             if(returnval):
                 self.d.Message("File Saved successfully")
-            else:
-                self.d.Error("File could not be saved")
-        else:
-            returnval=Save(self.filename)
-            if(returnval):
-                self.d.Message("File Saved successfully")
+                self.setWindowTitle(self.filename)
             else:
                 self.d.Error("File could not be saved")
     def saveAs(self):
@@ -226,17 +254,35 @@ class TextEditor(QMainWindow):
         returnval=Save(self.editor.text(),self.filename)
         if(returnval):
             self.d.Message("File Saved successfully")
+            self.setWindowTitle(self.filename)
         else:
             self.d.Error("File could not be saved")
-
-    def fontChange(self, *args, **kwargs):
-        fontClass, status = QFontDialog.getFont()
-        if status==True:
-            pass # change style of my IdE
-            
+    def run(self):
+        if self.filename is None:
+            self.saveAs()
+        Runfile(self.filename)
+    def runCustom(self):
+        if self.filename is None:
+            self.saveAs()
+        if self.filename != "":
+            print(len(self.filename))
+            option,ok=QInputDialog().getText(self,"Customized run","Enter parameters for sys.argv",QLineEdit.Normal," ")
+            if ok:
+                Runfile(self.filename,option)
+            else:
+                Runfile(self.filename)
+    def shell(self):
+        Shell()
+    def Font(self):
+        font, ok=QFontDialog.getFont()
+        if ok:
+            self.editor.setFont(font)
+            self.lexer.setFont(font)
+            self.editor.setLexer(self.lexer)
 if __name__=="__main__":
     app=QApplication([])
     app.setStyle(QStyleFactory.create('Fusion'))
     g=TextEditor()
     g.show()
     sys.exit(app.exec_())
+    

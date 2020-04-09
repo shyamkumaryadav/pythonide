@@ -5,7 +5,7 @@
 # Steps To Setup you System
 
 ---  
-  * [Downlado Git and Install](https://git-scm.com/downloads 'download & install')  
+  * [Download Git and Install](https://git-scm.com/downloads 'download & install')  
   * Make a [GitHub Account](https://github.com/join)  
   * Go And [Fork this repository](https://github.com/shyamkumaryadav/pythonide/fork "Python IDE")  
   * set value on git  
@@ -37,9 +37,13 @@ FindModified.py -----> An untested version for the find dialog
 Pending:  
 file for Replace functionality  
 file for changing encoding/ EOL and to save such files  
-Shell like interface  
+Improving the shell like interface  
 Debugging  
-Running the file within the application (as well as showing the output in a new   window)  
+Improvement in the interface of running the file within the application (as well as showing the output in a new window)  
+
+Features:
+1. Syntax Highlighting
+2. Bracket Matching
 
 Built using:  
 Python 3.7.4 shell  
