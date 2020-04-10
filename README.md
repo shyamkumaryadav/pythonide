@@ -24,7 +24,8 @@
 	---
 
 
-This file will run you through the work I have done( the work is neither optimized nor is it complete(Find and replace is missing and many more))  
+This file will run you through the work I have done( the work is neither optimized nor is it complete(Find and replace is missing and many more)) 
+start.sh/start.bat -----> Shell script to start the program 
 MainWindow.py -----> Main Entry Point of the IDE  
 Dialogs.py -----> Base Dialogs( Message, Warning and Question)  
 SaveLoad.py -----> Save and Open Dialogs  
@@ -46,6 +47,11 @@ Features:
 2. Bracket Matching
 
 Built using:  
-Python 3.7.4 shell  
-PyQt5 5.14.2  
-QScintilla 2.11.4  
+Python 3.7.4:
+[Official site](https://www.python.org/)
+PyQt5 5.14.2:
+[Download from PyPI](https://pypi.org/project/PyQt5/#files) 
+[Official site](https://www.riverbankcomputing.com/software/pyqt/download5)
+QScintilla 2.11.4:
+[Download from PyPI](https://pypi.org/project/QScintilla/#files)
+[Official Site](https://www,riverbankcomputing.com/software/qscintilla/intro)  
