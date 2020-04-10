@@ -1,17 +1,14 @@
-from PyQt5.QtWidgets import (
-    QSizePolicy, QWidget, QMenuBar, QMenu, QAction, QApplication, 
-    QMainWindow, QMessageBox, 
-    QStyleFactory, QDesktopWidget,QInputDialog,QLineEdit,QFontDialog)
-from PyQt5.QtCore import (QRect, QMetaObject, QCoreApplication)
-from PyQt5.QtGui import (QColor,QFont, QIcon)
+from PyQt5.QtWidgets import QSizePolicy, QWidget, QMenuBar, QMenu, QAction, QApplication, QMainWindow, QMessageBox, QStyleFactory, QDesktopWidget,QInputDialog,QLineEdit,QFontDialog
+from PyQt5.QtCore import QRect, QMetaObject, QCoreApplication
+from PyQt5.QtGui import QColor,QFont
 from PyQt5.Qsci import *
 import platform
 import sys
+from Settings import style_settings
 from Dialogs import Dialogs
 from SaveLoad import SaveLoad
 from Operations import Save,Open
-from Runfile import (Runfile, Shell)
-
+from Runfile import Runfile, Shell
 s=SaveLoad()
 class TextEditor(QMainWindow):
     def __init__(self):
@@ -28,11 +25,6 @@ class TextEditor(QMainWindow):
         self.d=Dialogs(self)
     def initUI(self):
         self.centralWidget=QWidget(self)
-        # print(dir(self.centralWidget))
-        self.centralWidget.resize(250, 166)
-        self.centralWidget.move(300, 300)
-        self.centralWidget.setWindowIcon(QIcon('ide.svg'))
-        self.centralWidget.showMaximized()
         sizePolicy=QSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
         sizePolicy.setHorizontalPolicy(0)
         sizePolicy.setVerticalStretch(0)
@@ -40,7 +32,6 @@ class TextEditor(QMainWindow):
         self.centralWidget.setSizePolicy(sizePolicy)
         self.centralWidget.setObjectName("centralwidget")
         self.editor=QsciScintilla(self.centralWidget)
-        # print(dir(self.editor))
         try:
             file_handle=open("config.txt","r")
             font_name,size,bold,italic=file_handle.read().split("/")
@@ -84,7 +75,6 @@ class TextEditor(QMainWindow):
         self.editor.marginClicked.connect(self.margin_clicked)
         self.editor.marginRightClicked.connect(self.margin_right_clicked)
         self.lexer=QsciLexerPython()
-        # print(dir(self.lexer))
         self.lexer.setFont(font)
         self.editor.setLexer(self.lexer)
         self.editor.setGeometry(QRect(0, 0, 900,680))
@@ -182,10 +172,9 @@ class TextEditor(QMainWindow):
         self.actionShell.triggered.connect(self.shell)
         self.actionFont.triggered.connect(self.Font)
         QMetaObject.connectSlotsByName(self)
-
     def retranslateUI(self):
         _translate = QCoreApplication.translate
-        self.setWindowTitle(_translate("MainWindow", "Untitled*"))
+        self.setWindowTitle(_translate("MainWindow", "Untitled"))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuEdit.setTitle(_translate("MainWindow", "Edit"))
         self.menuView.setTitle(_translate("MainWindow", "View"))
@@ -220,8 +209,6 @@ class TextEditor(QMainWindow):
         self.actionRun.setText(_translate("MainWindow","Run..."))
         self.actionRunCustomized.setText(_translate("MainWindow","Run customized"))
         self.actionShell.setText(_translate("MainWindow","Shell"))
-
-
     def margin_clicked(self,margin_nr,line_nr,state):
         self.editor.markerAdd(line_nr,margin_nr)
     def margin_right_clicked(self,margin_nr,line_nr,state):
@@ -259,12 +246,12 @@ class TextEditor(QMainWindow):
         else:
             returnval=Save(self.editor.text(),self.filename)
             if(returnval):
-                # self.d.Message("File Saved successfully")
+                self.d.Message("File Saved successfully")
                 self.setWindowTitle(self.filename)
             else:
                 self.d.Error("File could not be saved")
     def saveAs(self):
-        self.filename=s.SaveDialog() 
+        self.filename=s.SaveDialog()
         returnval=Save(self.editor.text(),self.filename)
         if(returnval):
             self.d.Message("File Saved successfully")
@@ -293,10 +280,10 @@ class TextEditor(QMainWindow):
             self.editor.setFont(font)
             self.lexer.setFont(font)
             self.editor.setLexer(self.lexer)
-
 if __name__=="__main__":
-    app=QApplication(sys.argv)
-    app.setStyle(QStyleFactory.create('Fusion'))
+    style=style_settings(QStyleFactory.keys())
+    app=QApplication([])
+    app.setStyle(QStyleFactory.create(style))
     g=TextEditor()
     g.show()
     sys.exit(app.exec_())

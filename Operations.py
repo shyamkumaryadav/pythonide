@@ -9,10 +9,8 @@ def Save(data,filename):
 def Open(filename):
     try:
         file_handle=open(filename,"r")
-        print("File Handle",file_handle)
         data=file_handle.read()
         file_handle.close()
-        print("Data")
         return data
     except:
         return None
