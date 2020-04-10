@@ -9,6 +9,7 @@ from Dialogs import Dialogs
 from SaveLoad import SaveLoad
 from Operations import Save,Open
 from Runfile import Runfile, Shell
+
 s=SaveLoad()
 class TextEditor(QMainWindow):
     def __init__(self):
