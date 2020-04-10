@@ -14,7 +14,7 @@ class TextEditor(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setObjectName("MainWindow")
-        self.filename=None
+        self.filename="Untitled"
         self.setFixedSize(900,QDesktopWidget().screenGeometry(-1).height())
         sizePolicy = QSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -32,6 +32,7 @@ class TextEditor(QMainWindow):
         self.centralWidget.setSizePolicy(sizePolicy)
         self.centralWidget.setObjectName("centralwidget")
         self.editor=QsciScintilla(self.centralWidget)
+        self.editor.textChanged.connect(self.textChange)
         try:
             file_handle=open("config.txt","r")
             font_name,size,bold,italic=file_handle.read().split("/")
@@ -174,7 +175,7 @@ class TextEditor(QMainWindow):
         QMetaObject.connectSlotsByName(self)
     def retranslateUI(self):
         _translate = QCoreApplication.translate
-        self.setWindowTitle(_translate("MainWindow", "Untitled"))
+        self.setWindowTitle(_translate("MainWindow", self.filename))
         self.menuFile.setTitle(_translate("MainWindow", "File"))
         self.menuEdit.setTitle(_translate("MainWindow", "Edit"))
         self.menuView.setTitle(_translate("MainWindow", "View"))
@@ -280,6 +281,9 @@ class TextEditor(QMainWindow):
             self.editor.setFont(font)
             self.lexer.setFont(font)
             self.editor.setLexer(self.lexer)
+
+    def textChange(self):
+        self.setWindowTitle(str(self.filename) + '*')
 if __name__=="__main__":
     style=style_settings(QStyleFactory.keys())
     app=QApplication([])
