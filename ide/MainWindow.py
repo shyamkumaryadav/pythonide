@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QAction, QApplication, QFileSystemModel, QFontDialog, QHBoxLayout, QInputDialog, QLineEdit, QMainWindow, QMenu, QMenuBar, QMessageBox, QStyleFactory, QTreeView, QWidget
-from PyQt5.QtGui import QColor, QFont
+from PyQt5.QtGui import QColor, QFont, QIcon
 from PyQt5.Qsci import QsciLexerPython, QsciScintilla
 from platform import system
 from sys import exit
@@ -15,6 +15,7 @@ class MainWindow(QMainWindow):
 		self.saveLoad=SaveLoad()
 		self.fileName=None
 		self.dialogs=Dialogs(self)
+		self.setWindowIcon(QIcon("Icon.ico"))
 		self.setupUI()
 	def setupUI(self):
 		centralWidget=QWidget(self)
