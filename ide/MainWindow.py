@@ -191,6 +191,7 @@ class MainWindow(QMainWindow):
 					self.save()
 		self.editor.setText("")
 		self.setWindowTitle("Untitled")
+		self.filename=None
 	def open(self):
 		if self.windowTitle().endswith("*"):
 			self.dialogs.MsgQuestion("Do you want to save your file?")
