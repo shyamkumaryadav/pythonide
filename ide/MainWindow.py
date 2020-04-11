@@ -503,7 +503,6 @@ class TextEditor(QMainWindow):
         else:
             returnval=Save(self.editor.text(),self.filename)
             if(returnval):
-                self.d.Message("File Saved successfully")
                 self.setWindowTitle(self.filename)
             else:
                 self.d.Error("File could not be saved")
@@ -511,7 +510,7 @@ class TextEditor(QMainWindow):
         self.filename=s.SaveDialog()
         returnval=Save(self.editor.text(),self.filename)
         if(returnval):
-            self.d.Message("File Saved successfully")
+            self.d.Message("File SaveAs successfully")
             self.setWindowTitle(self.filename)
         else:
             self.d.Error("File could not be saved")
