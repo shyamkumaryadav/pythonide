@@ -8,7 +8,6 @@ from Dialogs import Dialogs
 from SaveLoad import SaveLoad
 from Operations import Save,Open
 from Runfile import Runfile, Shell
-<<<<<<< HEAD:MainWindow.py
 class MainWindow(QMainWindow):
 	def __init__(self):
 		super().__init__()
@@ -263,7 +262,6 @@ class MainWindow(QMainWindow):
 		title=self.windowTitle()
 		if not(title.endswith("*")):
 			self.setWindowTitle(title+" *")
-=======
 
 s=SaveLoad()
 class TextEditor(QMainWindow):
@@ -540,7 +538,6 @@ class TextEditor(QMainWindow):
 
     def textChange(self):
         self.setWindowTitle(str(self.filename) + '*')
->>>>>>> 4f7308840edaaa6e98df5d35a4d4dccc058dabf3:ide/MainWindow.py
 if __name__=="__main__":
 	app=QApplication([])
 	style=style_settings(QStyleFactory.keys())
