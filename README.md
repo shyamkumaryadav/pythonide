@@ -30,13 +30,11 @@ MainWindow.py -----> Main Entry Point of the IDE
 Dialogs.py -----> Base Dialogs( Message, Warning and Question)  
 SaveLoad.py -----> Save and Open Dialogs  
 Operations.py -----> Backend for the save/load (open) operations  
-  
-Untested and redundant files:  
-SaveOperation.py ------> An earlier version of Operations.py  
-FindModified.py -----> An untested version for the find dialog  
-  
+Find.py ------> File for implementing Find functionality
+Replace.py -----> File for implementing Replace functionality
+
 Pending:  
-file for Replace functionality  
+Improvement for Find/Replace functionality  
 file for changing encoding/ EOL and to save such files  
 Improving the shell like interface  
 Debugging  
