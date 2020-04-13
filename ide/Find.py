@@ -56,6 +56,8 @@ class findDialog(QDialog):
 		btnFind.setGeometry(QRect(160, 270, 75, 23))
 		btnFind.setFont(defaultFont)
 		btnFind.setText("Find...")
+
+		
 		
 		directionBox=QGroupBox(self)
 		directionBox.setGeometry(QRect(10, 180, 341, 51))

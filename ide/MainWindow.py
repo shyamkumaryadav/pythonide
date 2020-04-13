@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import QAction, QApplication, QFileSystemModel, QFontDialog, QHBoxLayout, QInputDialog, QLineEdit, QMainWindow, QMenu, QMenuBar, QMessageBox, QStyleFactory, QTreeView, QWidget
-from PyQt5.QtGui import QColor, QFont
+from PyQt5.QtGui import QColor, QFont, QIcon
 from PyQt5.Qsci import QsciLexerPython, QsciScintilla
 from platform import system
 from sys import exit
@@ -14,6 +14,7 @@ class MainWindow(QMainWindow):
 	def __init__(self):
 		super().__init__()
 		self.setWindowTitle("Untitled")
+		self.setWindowIcon(QIcon("Icon.ico"))
 		self.saveLoad=SaveLoad()
 		self.fileName=None
 		self.dialogs=Dialogs(self)
@@ -271,7 +272,7 @@ class MainWindow(QMainWindow):
 	def find(self):
 		findObj=findDialog(self,self.editor)
 if __name__=="__main__":
-	app=QApplication([])
+	app=QApplication(['Python IDE'])
 	app.setStyle(QStyleFactory.create("Fusion"))
 	textEdit=MainWindow()
 	exit(app.exec_())

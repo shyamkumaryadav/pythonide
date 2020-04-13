@@ -67,7 +67,7 @@ def modify(position, modificationType, text, length, linesAdded,
             prev = [-1, fold]
     set_fold(prev, lend - 1, 0, full)
 
-def hover(position, xpos, ypos):
+defhover(position, xpos, ypos):
     mask = view.SendScintilla(view.SCI_GETMARGINMASKN, 2)
     mask = (mask | view.SC_MASK_FOLDERS, mask & ~view.SC_MASK_FOLDERS) \
            [xpos > StandardMarginWidth]
@@ -114,7 +114,7 @@ if __name__ == '__main__':
 
     # NUM_CHUNKS = 1
     # chunk = textwrap.dedent("""\
-    #     def foo():
+    #     deffoo():
     #         x = 10
     #         y = 20
     #         return x+y
