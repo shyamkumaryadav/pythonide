@@ -1,1 +1,1 @@
-python3 /home/shyam/Downloads/py.py
+python3 /home/shyam/Downloads/pythonide/ide/MainWindow.py
