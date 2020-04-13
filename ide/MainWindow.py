@@ -272,7 +272,8 @@ class MainWindow(QMainWindow):
 	def find(self):
 		findObj=findDialog(self,self.editor)
 if __name__=="__main__":
-	app=QApplication(['Python IDE'])
+	app=QApplication([])
+	app.setApplicationName("Python IDE")
 	app.setStyle(QStyleFactory.create("Fusion"))
 	textEdit=MainWindow()
 	exit(app.exec_())
