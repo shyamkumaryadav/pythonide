@@ -3,6 +3,7 @@ from PyQt5.QtGui import QColor, QFont, QIcon
 from PyQt5.Qsci import QsciLexerPython, QsciScintilla
 from platform import system
 from sys import exit
+import os
 from Settings import style_settings
 from Dialogs import Dialogs
 from SaveLoad import SaveLoad
@@ -10,11 +11,15 @@ from Operations import Save,Open
 from Runfile import Runfile, Shell
 from Replace import replaceDialog
 from Find import findDialog
+
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 class MainWindow(QMainWindow):
 	def __init__(self):
 		super().__init__()
 		self.setWindowTitle("Untitled")
-		self.setWindowIcon(QIcon("Icon.ico"))
+		icon = os.path.join(BASE_DIR, 'ide/Icon.ico')
+		self.setWindowIcon(QIcon(icon))
 		self.saveLoad=SaveLoad()
 		self.fileName=None
 		self.dialogs=Dialogs(self)
