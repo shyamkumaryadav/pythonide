@@ -3,6 +3,10 @@ __pycache__/
 *.py[cod]
 *$py.class
 ide/style.file
+out.sh
+start.*
+out.sh
+ide/shell.*
 
 # C extensions
 *.so
