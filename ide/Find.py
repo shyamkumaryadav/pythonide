@@ -76,6 +76,8 @@ class findDialog(QDialog):
 		self.rbBwd.setText("Backward")
 		
 		btnFind.clicked.connect(self.FindText)
+		defaultDialogButtons.accepted.connect(self.accept)
+		defaultDialogButtons.rejected.connect(self.reject)
 	def FindText(self):
 		RE=self.chkRE.isChecked()
 		CS=self.chkCS.isChecked()

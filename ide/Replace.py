@@ -6,6 +6,7 @@ class replaceDialog(QDialog):
 		super().__init__(mainWindow)
 		self.resize(409, 367)
 		self.editor=editor
+		self.setWindowTitle("Replace")
 		self.initUI()
 		self.show()
 	def initUI(self):
@@ -76,6 +77,8 @@ class replaceDialog(QDialog):
 		self.rbBwd.setText("Backward")
 		
 		btnReplace.clicked.connect(self.ReplaceText)
+		defaultDialogButtons.accepted.connect(self.accept)
+		defaultDialogButtons.rejected.connect(self.reject)
 	def ReplaceText(self):
 		if self.rbFwd.isChecked():
 			forward=True

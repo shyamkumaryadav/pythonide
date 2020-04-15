@@ -17,7 +17,6 @@ class MainWindow(QMainWindow):
 		self.setWindowIcon(QIcon("Icon.ico"))
 		self.saveLoad=SaveLoad()
 		self.fileName=None
-		self.dialogs=Dialogs(self)
 		self.setupUI()
 	def setupUI(self):
 		centralWidget=QWidget(self)
@@ -188,8 +187,7 @@ class MainWindow(QMainWindow):
 		self.editor.markerDelete(line_nr,margin_nr)
 	def new(self):
 		if self.windowTitle().endswith("*"):
-			self.dialogs.MsgQuestion("Do you want to save your file?")
-			if(self.dialogs.getclickstatus()=="accept"):
+			if(Dialogs().Question(self,"Do you want to save your file?")=="accept"):
 				if self.filename is None:
 					self.saveAs()
 				else:
@@ -198,8 +196,7 @@ class MainWindow(QMainWindow):
 		self.setWindowTitle("Untitled")
 	def open(self):
 		if self.windowTitle().endswith("*"):
-			self.dialogs.MsgQuestion("Do you want to save your file?")
-			if(self.dialogs.getclickstatus()=="accept"):
+			if(Dialogs().Question(self,"Do you want to save your file?")=="accept"):
 				if self.filename is None:
 					self.saveAs()
 				else:
@@ -216,18 +213,18 @@ class MainWindow(QMainWindow):
 		else:
 			returnval=Save(self.editor.text(),self.filename)
 			if(returnval):
-				self.dialogs.Message("File Saved successfully")
+				Dialogs().Message(self,"File saved successfully")
 				self.setWindowTitle(self.filename)
 			else:
-				self.dialogs.Error("File could not be saved")
+				Dialogs().Error(self,"File could not be saved")
 	def saveAs(self):
 		self.filename=self.saveLoad.SaveDialog()
 		returnval=Save(self.editor.text(),self.filename)
 		if(returnval):
-			self.dialogs.Message("File Saved successfully")
+			Dialogs().Message(self,"File saved successfully")
 			self.setWindowTitle(self.filename)
 		else:
-			self.dialogs.Error("File could not be saved")
+			Dialogs().Error(self,"File could not be saved")
 	def run(self):
 		if self.filename is None:
 			self.saveAs()
@@ -252,8 +249,7 @@ class MainWindow(QMainWindow):
 		fileName=self.fileSysView.model().filePath(signal)
 		if fileName.endswith("py") or fileName.endswith("pyw"):
 			if self.windowTitle().endswith("*"):
-				self.dialogs.MsgQuestion("Do you want to save your file?")
-				if self.dialogs.getclickstatus()=="accept":
+				if Dialogs().Question(self,"Do you want to save your file?")=="accept":
 					if self.filename is None:
 						self.saveAs()
 					else:
