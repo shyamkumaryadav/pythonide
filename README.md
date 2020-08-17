@@ -24,21 +24,32 @@
 	---
 
 
-This file will run you through the work I have done( the work is neither optimized nor is it complete(Find and replace is missing and many more)) 
-start.sh/start.bat -----> Shell script to start the program 
-MainWindow.py -----> Main Entry Point of the IDE  
-Dialogs.py -----> Base Dialogs( Message, Warning and Question)  
-SaveLoad.py -----> Save and Open Dialogs  
-Operations.py -----> Backend for the save/load (open) operations  
-Find.py ------> File for implementing Find functionality
-Replace.py -----> File for implementing Replace functionality
+> This file will run you through the work I have done( the work is neither optimized nor is it complete(Find and replace is missing and many more)) 
 
-Pending:  
-Improvement for Find/Replace functionality  
-file for changing encoding/ EOL and to save such files  
-Improving the shell like interface  
-Debugging  
-Improvement in the interface of running the file within the application (as well as showing the output in a new window)  
+| File&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; | Description |
+| ----------------------- | ------------------ |
+| [MainWindow.py](https://github.com/shyamkumaryadav/pythonide/find/master)| Main Entry Point of the IDE |
+| [Dialogs.py](https://github.com/shyamkumaryadav/pythonide/find/master)| Base Dialogs( Message, Warning and Question) |
+| [SaveLoad.py](https://github.com/shyamkumaryadav/pythonide/find/master)| Save and Open Dialogs |
+| [Operations.py](https://github.com/shyamkumaryadav/pythonide/find/master)| Backend for the save/load (open) operations |
+| [Find.py](https://github.com/shyamkumaryadav/pythonide/find/master)| File for implementing Find functionality |
+| [Replace.py](https://github.com/shyamkumaryadav/pythonide/find/master)| File for implementing Replace functionality |
+
+<!-- 
+start.sh/start.bat >>> Shell script to start the program 
+MainWindow.py >>> Main Entry Point of the IDE  
+Dialogs.py >>> Base Dialogs( Message, Warning and Question)  
+SaveLoad.py >>> Save and Open Dialogs  
+Operations.py >>> Backend for the save/load (open) operations  
+Find.py >>> File for implementing Find functionality
+Replace.py >>> File for implementing Replace functionality -->
+
+## Pending
+> Improvement for Find/Replace functionality  
+> file for changing encoding/ EOL and to save such files  
+> Improving the shell like interface  
+> Debugging  
+> Improvement in the interface of running the file within the application (as well as showing the output in a new window)  
 
 <b>Features</b>:
 1. Syntax Highlighting
