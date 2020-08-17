@@ -1,10 +1,4 @@
-# -*- coding: utf-8 -*-
-
-# Form implementation generated from reading ui file 'TreeViewEx.ui'
-#
-# Created by: PyQt5 UI code generator 5.14.1
-#
-# WARNING! All changes made in this file will be lost!
+#!/usr/bin/env python
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -19,8 +13,8 @@ class Ui_MainWindow(object):
         self.treeView = QtWidgets.QTreeView(self.centralwidget)
         self.treeView.setGeometry(QtCore.QRect(0, 0, 256, 551))
         self.treeView.setObjectName("treeView")
-        model=QtWidgets.QFileSystemModel()
-        model.setRootPath("/")
+        model = QtWidgets.QFileSystemModel()
+        model.setRootPath("/Users")
         self.treeView.setModel(model)
         self.treeView.hideColumn(1)
         self.treeView.hideColumn(2)
@@ -47,6 +41,8 @@ class Ui_MainWindow(object):
 
     def fileOpen(self, signal):
         self.lineEdit.setText(self.treeView.model().filePath(signal))
+
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
