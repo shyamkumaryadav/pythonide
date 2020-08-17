@@ -63,6 +63,6 @@ Built using:
 Python 3.7.4: 
 [Official site](https://www.python.org/)  
 PyQt5 5.14.2:
-[Download from PyPI](https://pypi.org/project/PyQt5/#files) or [Official site](https://www.riverbankcomputing.com/software/pyqt/download5)  
+[Download from PyPI](https://pypi.org/project/PyQt5/) or [Official site](https://www.riverbankcomputing.com/software/pyqt/download5)  
 QScintilla 2.11.4:
-[Download from PyPI](https://pypi.org/project/QScintilla/#files) or [Official Site](https://www,riverbankcomputing.com/software/qscintilla/intro)    
+[Download from PyPI](https://pypi.org/project/QScintilla/) or [Official Site](https://www.riverbankcomputing.com/software/qscintilla/intro)    
